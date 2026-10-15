@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Rover Minero</title>
+    <link rel="stylesheet" href="./style.css">
+    <!-- Fuente tecnológica -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Capa oscura para que resalte la interfaz sobre la imagen de fondo -->
+    <div class="overlay"></div> 
+    
+    <div class="dashboard-container">
+        
+        <!-- ================= PANEL IZQUIERDO ================= -->
+        <aside class="left-panel">
+            <div class="profile-pic border-cyan">
+                <!-- Asegúrate de tener una imagen llamada avatar1.jpg en tu carpeta -->
+                <img src="./avatar1.jpg" alt="Piloto">
+            </div>
+            
+            <div class="controls-mode">
+                <button class="btn-cyan">Modo automático</button>
+                <button class="btn-cyan">Modo manual</button>
+            </div>
+
+            <div class="directional-pad border-cyan">
+                <button class="d-pad-btn up">▲</button>
+                <div class="d-pad-middle">
+                    <button class="d-pad-btn left">◀</button>
+                    <button class="d-pad-btn right">▶</button>
+                </div>
+                <button class="d-pad-btn down">▼</button>
+            </div>
+
+            <div class="controls-action">
+                <button class="btn-cyan">Activar taladro</button>
+                <button class="btn-cyan active">Desactivar taladro</button>
+            </div>
+
+             <div class="profile-pic border-cyan">
+                 <!-- Asegúrate de tener una imagen llamada avatar2.jpg en tu carpeta -->
+                <img src="./avatar2.jpg" alt="Mascara">
+            </div>
+        </aside>
+
+        <!-- ================= PANEL CENTRAL ================= -->
+        <main class="center-panel">
+            <div class="status-bars">
+                <div class="bar-group">
+                    <label>Cámara y ruedas</label>
+                    <div class="progress-bar"><div class="fill" style="width: 80%;"></div></div>
+                </div>
+                <div class="bar-group">
+                    <label>Brazos y sensores</label>
+                    <div class="progress-bar"><div class="fill" style="width: 60%;"></div></div>
+                </div>
+                <div class="bar-group">
+                    <label>Taladro</label>
+                    <div class="progress-bar"><div class="fill" style="width: 40%;"></div></div>
+                </div>
+            </div>
+
+            <!-- Modal de Conexión IP -->
+            <div class="connection-modal border-cyan">
+                <h2>Ingrese la IP de su ESP32</h2>
+                <div class="input-group">
+                    <input type="text" placeholder="Ejemplo: 192.168.137.1" id="ip-input">
+                    <button class="btn-cyan-solid" id="btn-ingresar">Ingresar</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- ================= PANEL DERECHO ================= -->
+        <aside class="right-panel">
+            <div class="radar-container border-cyan">
+                <div class="radar">
+                    <div class="radar-point">▲</div>
+                </div>
+                <div class="coordinates">
+                    <span>X: --- Y: --- Z: ---</span>
+                </div>
+            </div>
+
+            <div class="sensors-data border-cyan">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sensores</th>
+                            <th>Datos</th>
+                            <th>Unidades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Distancia</td><td>---</td><td>Cm</td></tr>
+                        <tr><td>Temperatura DHT</td><td>---</td><td>°C</td></tr>
+                        <tr><td>Humedad DHT</td><td>---</td><td>%</td></tr>
+                        <tr><td>Temperatura BMP</td><td>---</td><td>°C</td></tr>
+                        <tr><td>Presión BMP</td><td>---</td><td>hPa</td></tr>
+                        <tr><td>Luz</td><td>---</td><td>Poca luz</td></tr>
+                        <tr><td>Contaminación</td><td>---</td><td>Baja</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

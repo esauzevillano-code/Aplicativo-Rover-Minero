@@ -1,0 +1,287 @@
+/* --- Variables Generales --- */
+:root {
+    --cyan-glow: #00ffff;
+    --cyan-dim: rgba(0, 255, 255, 0.2);
+    --bg-dark: rgba(0, 0, 0, 0.6); /* Fondos un poco más transparentes */
+    --text-main: #ffffff;
+    --font-tech: 'Share Tech Mono', monospace;
+}
+
+/* --- Reseteo --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a0505; 
+    /* AQUÍ SE CARGA EL FONDO: Asegúrate de tener una imagen llamada fondo.jpg */
+    background-image: url('./fondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: var(--text-main);
+    font-family: var(--font-tech);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Capa semitransparente para oscurecer/dar tono al fondo de pantalla */
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 0, 0, 0.15); /* Tono rojizo sutil */
+    z-index: -1;
+}
+
+/* --- Layout Principal --- */
+.dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding: 25px;
+    gap: 20px;
+}
+
+.left-panel {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.right-panel {
+    width: 320px; /* Un poco más ancho para la tabla de datos */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.center-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* --- Clases Reutilizables (Bordes y Botones) --- */
+.border-cyan {
+    border: 1.5px solid var(--cyan-glow);
+    border-radius: 8px;
+    box-shadow: 0 0 8px var(--cyan-dim), inset 0 0 8px var(--cyan-dim);
+    background-color: var(--bg-dark);
+    padding: 12px;
+    backdrop-filter: blur(3px); /* Efecto cristal moderno */
+}
+
+.btn-cyan {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--cyan-glow);
+    color: var(--cyan-glow);
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-tech);
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    flex: 1; /* Para que ocupen el mismo ancho */
+}
+
+.btn-cyan:hover, .btn-cyan.active {
+    background-color: var(--cyan-dim);
+    box-shadow: 0 0 10px var(--cyan-glow);
+    color: #fff;
+    text-shadow: 0 0 5px var(--cyan-glow);
+}
+
+.btn-cyan-solid {
+    background-color: var(--cyan-glow);
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-tech);
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.2s;
+}
+
+.btn-cyan-solid:hover {
+    box-shadow: 0 0 15px var(--cyan-glow);
+    transform: scale(1.05);
+}
+
+/* --- Panel Izquierdo --- */
+.profile-pic {
+    width: 100%;
+    height: 160px;
+    padding: 0; /* Quitamos padding para que la imagen llene el borde */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen sin deformarla */
+}
+
+.controls-mode, .controls-action {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.directional-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 15px;
+}
+.d-pad-middle {
+    display: flex;
+    gap: 35px;
+}
+.d-pad-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--text-main);
+    color: var(--text-main);
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: 0.2s;
+}
+.d-pad-btn:hover { 
+    background: rgba(255,255,255,0.3); 
+    box-shadow: 0 0 5px #fff;
+}
+
+/* --- Panel Central --- */
+.status-bars {
+    width: 100%;
+    max-width: 400px;
+    align-self: flex-start;
+    margin-top: -10px;
+}
+.bar-group { margin-bottom: 12px; }
+.bar-group label {
+    display: block;
+    color: var(--cyan-glow);
+    margin-bottom: 5px;
+    font-size: 1em;
+    text-shadow: 0 0 3px var(--cyan-glow);
+}
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    border: 1px solid var(--cyan-glow);
+    border-radius: 6px;
+    background: rgba(0,0,0,0.5);
+    padding: 1px;
+}
+.progress-bar .fill {
+    height: 100%;
+    background-color: #39ff14; /* Verde neón */
+    border-radius: 4px;
+    box-shadow: 0 0 10px #39ff14;
+}
+
+.connection-modal {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 50px;
+    background-color: rgba(0, 0, 0, 0.95);
+    min-width: 500px;
+    box-shadow: 0 0 20px var(--cyan-dim);
+}
+.connection-modal h2 { 
+    margin-bottom: 25px; 
+    font-weight: normal; 
+    font-size: 1.4em;
+    letter-spacing: 1px;
+}
+.input-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.input-group input {
+    background: transparent;
+    border: 1px solid var(--cyan-glow);
+    color: var(--cyan-glow);
+    padding: 12px;
+    border-radius: 5px;
+    width: 280px;
+    font-family: var(--font-tech);
+    font-size: 1.1em;
+    outline: none;
+}
+.input-group input:focus {
+    box-shadow: 0 0 8px var(--cyan-dim);
+}
+.input-group input::placeholder {
+    color: rgba(0, 255, 255, 0.4);
+}
+
+/* --- Panel Derecho --- */
+.radar-container {
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.radar {
+    width: 140px;
+    height: 140px;
+    border: 2px solid var(--cyan-glow);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, rgba(0,0,0,0) 70%);
+}
+.radar-point { 
+    color: #39ff14; 
+    font-size: 1.5em;
+    text-shadow: 0 0 8px #39ff14;
+}
+.coordinates { 
+    color: var(--cyan-glow); 
+    font-size: 1em; 
+    letter-spacing: 2px;
+}
+
+.sensors-data table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+}
+.sensors-data th { 
+    color: var(--cyan-glow); 
+    padding-bottom: 12px; 
+    text-align: left;
+    font-weight: normal;
+    border-bottom: 1px solid var(--cyan-glow);
+}
+.sensors-data td { 
+    padding: 8px 0; 
+    border-bottom: 1px dashed rgba(0, 255, 255, 0.2); 
+}
+.sensors-data tr:last-child td {
+    border-bottom: none;
+}
